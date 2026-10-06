@@ -3,11 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Swimming Baby Mermaids</title>
+  <title>Taliya Skye M. Ishmael — Akika & Dedication</title>
   <style>
     * { box-sizing: border-box; }
-    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
-    body { font-family: Arial, Helvetica, sans-serif; background: #0b6fa4; overscroll-behavior: none; }
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      overflow: hidden;
+    }
+
+    html {
+      background: #0b6fa4;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      min-height: 100dvh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b6fa4;
+      overscroll-behavior: none;
+      touch-action: manipulation;
+    }
 
     .ocean {
       position: fixed;
@@ -151,7 +169,237 @@
       }
     }
 
-    /* RSVP card */
+
+
+    /* Opening invitation screen */
+    .email-intro {
+      position: fixed;
+      inset: 0;
+      z-index: 160;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: linear-gradient(to bottom, rgba(3, 63, 99, .08), rgba(3, 63, 99, .18));
+      transition: opacity .45s ease, visibility .45s ease, transform .45s ease;
+    }
+
+    .email-intro.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.035);
+      pointer-events: none;
+    }
+
+    .email-open-button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      color: inherit;
+      display: grid;
+      justify-items: center;
+      gap: 20px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .email-visual {
+      position: relative;
+      width: min(78vw, 330px);
+      aspect-ratio: 1.36 / 1;
+      filter: drop-shadow(0 26px 35px rgba(3, 63, 99, .32));
+      transform: translateY(0) rotate(-1deg);
+      transition: transform .28s ease, filter .28s ease;
+      animation: emailFloat 3.6s ease-in-out infinite;
+    }
+
+    .email-open-button:hover .email-visual,
+    .email-open-button:focus-visible .email-visual {
+      transform: translateY(-7px) rotate(1deg) scale(1.02);
+      filter: drop-shadow(0 30px 42px rgba(3, 63, 99, .38));
+    }
+
+    .email-open-button:focus-visible {
+      outline: 3px solid rgba(255,255,255,.92);
+      outline-offset: 12px;
+      border-radius: 24px;
+    }
+
+    @keyframes emailFloat {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -8px; }
+    }
+
+    .envelope-back,
+    .envelope-front,
+    .envelope-flap,
+    .email-letter {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .envelope-back {
+      inset: 22% 0 0;
+      width: 100%;
+      height: 72%;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #fffafc, #f8d9e5);
+      border: 2px solid rgba(255,255,255,.92);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+    }
+
+    .email-letter {
+      top: 3%;
+      width: 76%;
+      height: 70%;
+      border-radius: 14px 14px 8px 8px;
+      background: linear-gradient(180deg, #fff, #fff9fb);
+      border: 1px solid #efd6e0;
+      box-shadow: 0 10px 26px rgba(113, 62, 87, .14);
+      padding: 21px 18px;
+      text-align: center;
+      color: #a95479;
+      transform: translateY(0);
+      transition: transform .45s cubic-bezier(.2,.8,.2,1);
+      z-index: 2;
+    }
+
+    .email-open-button:hover .email-letter {
+      transform: translateY(-10px);
+    }
+
+    .letter-heart {
+      width: 42px;
+      height: 42px;
+      margin: 0 auto 9px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #f9c9da, #dcf6f8);
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .letter-title {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(17px, 5vw, 24px);
+      line-height: 1.05;
+      font-weight: 700;
+    }
+
+    .letter-line {
+      width: 72%;
+      height: 5px;
+      margin: 10px auto 0;
+      border-radius: 999px;
+      background: #f1dce5;
+    }
+
+    .letter-line.short { width: 48%; }
+
+    .envelope-flap {
+      top: 22%;
+      width: 100%;
+      height: 46%;
+      z-index: 4;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      background: linear-gradient(165deg, #ffeef4, #edbed0);
+      border-radius: 18px 18px 0 0;
+      transform-origin: top center;
+      transition: transform .4s ease;
+    }
+
+    .email-open-button:hover .envelope-flap {
+      transform: rotateX(12deg);
+    }
+
+    .envelope-front {
+      bottom: 0;
+      width: 100%;
+      height: 62%;
+      z-index: 5;
+      overflow: hidden;
+      border-radius: 0 0 20px 20px;
+      background:
+        linear-gradient(32deg, #f7ccdc 49%, transparent 50%),
+        linear-gradient(-32deg, #ffe9f1 49%, transparent 50%),
+        linear-gradient(180deg, #fbe0e9, #f3c6d7);
+      border: 2px solid rgba(255,255,255,.78);
+      border-top: 0;
+    }
+
+    .email-badge {
+      position: absolute;
+      top: 13%;
+      right: 3%;
+      z-index: 8;
+      min-width: 36px;
+      height: 36px;
+      padding: 0 10px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: #d86f9a;
+      color: white;
+      font-size: 14px;
+      font-weight: 800;
+      border: 3px solid rgba(255,255,255,.92);
+      box-shadow: 0 8px 18px rgba(164, 69, 107, .22);
+    }
+
+    .email-intro-copy {
+      text-align: center;
+      color: white;
+      text-shadow: 0 2px 10px rgba(4, 66, 99, .24);
+    }
+
+    .email-intro-copy strong {
+      display: block;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(24px, 6vw, 34px);
+      line-height: 1.08;
+      margin-bottom: 7px;
+    }
+
+    .email-intro-copy span {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      opacity: .96;
+    }
+
+    .rsvp-shell {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(18px) scale(.97);
+      transition: opacity .5s ease, visibility .5s ease, transform .5s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .rsvp-shell.is-open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    @media (max-width: 520px) {
+      .email-intro { padding: 18px; }
+      .email-visual { width: min(82vw, 310px); }
+      .email-letter { padding-top: 17px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .email-visual { animation: none; }
+      .email-intro,
+      .rsvp-shell,
+      .email-letter,
+      .envelope-flap { transition-duration: 1ms !important; }
+    }
+
+    /* Akika & Dedication RSVP card */
     .rsvp-shell {
       position: fixed;
       inset: 0;
@@ -403,38 +651,281 @@
       line-height: 1.55;
     }
 
+    /* Responsive layout */
     @media (max-width: 520px) {
-       .rsvp-shell {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+      .email-intro {
+        min-height: 100dvh;
+        padding:
+          max(16px, env(safe-area-inset-top))
+          max(14px, env(safe-area-inset-right))
+          max(18px, env(safe-area-inset-bottom))
+          max(14px, env(safe-area-inset-left));
+      }
 
-    padding-top: 2vh;
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-}
+      .email-open-button {
+        width: min(100%, 360px);
+        gap: clamp(14px, 3vh, 20px);
+      }
+
+      .email-visual {
+        width: min(82vw, 300px, 42dvh);
+        max-width: 100%;
+      }
+
+      .email-letter {
+        padding: 14px 12px;
+      }
+
+      .letter-heart {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 7px;
+        font-size: 19px;
+      }
+
+      .letter-title {
+        font-size: clamp(15px, 5vw, 21px);
+      }
+
+      .letter-line {
+        margin-top: 8px;
+        height: 4px;
+      }
+
+      .email-intro-copy strong {
+        font-size: clamp(23px, 7vw, 31px);
+      }
+
+      .email-intro-copy span {
+        font-size: 13px;
+      }
+
+      .rsvp-shell {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100dvh;
+        padding:
+          max(10px, env(safe-area-inset-top))
+          max(10px, env(safe-area-inset-right))
+          max(10px, env(safe-area-inset-bottom))
+          max(10px, env(safe-area-inset-left));
+        overflow: hidden;
+      }
 
       .rsvp-card {
-        width: min(94vw, 430px);
-        padding: 22px 18px 18px;
-        border-radius: 24px;
-		
+        width: 100%;
+        max-width: 430px;
+        max-height: calc(100dvh - max(20px, env(safe-area-inset-top) + env(safe-area-inset-bottom)));
+        padding: 18px 16px 16px;
+        border-radius: 22px;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .rsvp-card > div:first-child img {
+        width: min(68vw, 260px) !important;
+        max-height: 16dvh;
+        object-fit: contain;
+        margin: 4px auto 6px !important;
+      }
+
+      .rsvp-title {
+        font-size: clamp(25px, 8vw, 33px);
+      }
+
+      .rsvp-subtitle {
+        margin: 8px auto 13px;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .rsvp-divider {
+        margin-bottom: 13px;
+      }
+
+      .progress {
+        margin-bottom: 15px;
+      }
+
+      .question {
+        margin-bottom: 12px;
+        font-size: 18px;
+      }
+
+      .helper {
+        margin-bottom: 12px;
+        font-size: 12.5px;
+      }
+
+      .option-grid {
+        gap: 8px;
+      }
+
+      .choice-btn {
+        min-height: 50px;
+        padding: 11px 12px;
+        border-radius: 14px;
+      }
+
+      .text-input {
+        height: 50px;
+      }
+
+      .text-area {
+        min-height: 92px;
+      }
+
+      .nav-row {
+        gap: 8px;
+        margin-top: 12px;
+      }
+
+      .next-btn {
+        min-height: 50px;
+      }
+
+      .back-btn {
+        min-width: 76px;
+      }
+
+      .status-message {
+        min-height: 16px;
+        margin-top: 7px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .email-visual {
+        width: min(80vw, 270px, 40dvh);
+      }
+
+      .rsvp-shell {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      .rsvp-card {
+        padding: 15px 13px 14px;
+        border-radius: 19px;
+      }
+
+      .rsvp-card > div:first-child img {
+        width: min(62vw, 225px) !important;
       }
 
       .option-grid.two {
         grid-template-columns: 1fr 1fr;
+        gap: 7px;
       }
 
-      .question {
-        font-size: 19px;
+      .choice-btn {
+        font-size: 14px;
+      }
+    }
+
+    /* Short phone screens and mobile landscape */
+    @media (max-height: 680px) and (max-width: 900px) {
+      .email-open-button {
+        gap: 10px;
+      }
+
+      .email-visual {
+        width: min(62vw, 250px, 36dvh);
+      }
+
+      .email-intro-copy strong {
+        font-size: clamp(20px, 5vw, 27px);
+        margin-bottom: 4px;
+      }
+
+      .email-intro-copy span {
+        font-size: 12px;
+      }
+
+      .rsvp-card {
+        max-height: calc(100dvh - 12px);
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+
+      .rsvp-card > div:first-child img {
+        max-height: 12dvh;
+        margin-top: 0 !important;
+        margin-bottom: 2px !important;
+      }
+
+      .rsvp-subtitle {
+        margin-top: 6px;
+        margin-bottom: 9px;
+      }
+
+      .rsvp-divider,
+      .progress {
+        margin-bottom: 10px;
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 520px) {
+      .email-intro {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+
+      .email-open-button {
+        grid-template-columns: auto auto;
+        align-items: center;
+        justify-content: center;
+        width: min(92vw, 680px);
+        gap: 24px;
+      }
+
+      .email-visual {
+        width: min(42vw, 250px, 62dvh);
+      }
+
+      .email-intro-copy {
+        max-width: 280px;
+        text-align: left;
+      }
+
+      .rsvp-shell {
+        align-items: center;
+        padding-top: 6px;
+        padding-bottom: 6px;
+      }
+
+      .rsvp-card {
+        max-height: calc(100dvh - 12px);
       }
     }
 
   </style>
 </head>
 <body>
-  <main class="ocean" id="ocean" aria-label="Animated underwater baby mermaid scene with multiple mermaids">
+
+  <section class="email-intro" id="emailIntro" aria-label="Open your Akika and Dedication invitation">
+    <button class="email-open-button" id="openInvitation" type="button" aria-label="Open invitation message">
+      <div class="email-visual" aria-hidden="true">
+        <div class="envelope-back"></div>
+        <div class="email-letter">
+          <div class="letter-heart">♡</div>
+          <p class="letter-title">You’ve got<br>a special invitation</p>
+          <div class="letter-line"></div>
+          <div class="letter-line short"></div>
+        </div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-front"></div>
+        <div class="email-badge">1</div>
+      </div>
+      <div class="email-intro-copy">
+        <strong>A Special Invitation</strong>
+        <span>Tap the envelope to open</span>
+      </div>
+    </button>
+  </section>
+
+  <main class="ocean" id="ocean" aria-label="Animated underwater baby mermaid scene">
     <div class="ray r1"></div>
     <div class="ray r2"></div>
     <div class="ray r3"></div>
@@ -497,12 +988,20 @@
     </div>
   </main>
 
-  <section class="rsvp-shell" aria-label="Baby shower RSVP">
+  <section class="rsvp-shell" aria-label="Akika and Dedication RSVP">
     <form class="rsvp-card" id="rsvpForm" novalidate>
      <div style="text-align: center;">
 		<img src="./index_files/name.png" style="margin: 10px;max-width: 100%;width: 300px;"></div>
-      <h1 class="rsvp-title">A Little Mermaid<br>Is On The Way</h1>
-      <p class="rsvp-subtitle">We would love to celebrate our sweet baby girl with you.</p>
+      <h1 class="rsvp-title">AQIQAH</h1>
+      <p class="rsvp-subtitle"><strong>With grateful hearts, we invite you to celebrate this special day of blessing and joy with us.</strong></p>
+		
+	<div class="rsvp-subtitle" style="text-align: left;padding: 0 20px;">
+		
+		<span style="margin-right: 10px;">📅 When:</span> November 21, 2026 <br>
+		<span style="margin-right: 10px;">📍 Where:</span> Blk 8, Lot 12, Rebecca Homes Phase A, Brgy. San Isidro, General Santos City 
+		
+		</div>
+		
       <div class="rsvp-divider"></div>
 
       <div class="progress" aria-hidden="true">
@@ -513,7 +1012,7 @@
       </div>
 
       <div class="quiz-step active" data-step="0">
-        <h2 class="question">Will you be joining us?</h2>
+        <h2 class="question">Will you be joining?</h2>
         <div class="option-grid">
           <button type="button" class="choice-btn" data-rsvp="yes">💕 Yes, I’ll be there</button>
           <button type="button" class="choice-btn" data-rsvp="no">🌸 Sadly, I can’t make it</button>
@@ -555,10 +1054,10 @@
       </div>
 
       <div class="quiz-step" data-step="3">
-        <h2 class="question">Leave a little wish for baby girl</h2>
-        <p class="helper">Optional — a sweet note, advice, or just some love.</p>
+        <h2 class="question">Leave a little blessing for Taliya</h2>
+        <p class="helper">Optional — a prayer, blessing, message, or words of love.</p>
         <textarea class="text-area" id="babyWish" name="babyWish"
-                  placeholder="Write your message here..."></textarea>
+                  placeholder="Write your blessing or message here..."></textarea>
 
         <div class="nav-row">
           <button type="button" class="back-btn">Back</button>
@@ -569,7 +1068,7 @@
       <div class="quiz-step" data-step="4">
         <div class="success-mark">♡</div>
         <h2 class="question">Thank you!</h2>
-        <p class="helper" id="thankYouText">Your RSVP has been saved on this page.</p>
+        <p class="helper" id="thankYouText">Thank you for being part of Taliya’s special day.</p>
         <div class="summary" id="rsvpSummary"></div>
       </div>
     </form>
@@ -577,6 +1076,21 @@
 
 
   <script>
+
+    // Opening invitation screen
+    const emailIntro = document.getElementById('emailIntro');
+    const openInvitation = document.getElementById('openInvitation');
+    const rsvpShell = document.querySelector('.rsvp-shell');
+
+    openInvitation.addEventListener('click', () => {
+      emailIntro.classList.add('is-hidden');
+      rsvpShell.classList.add('is-open');
+      setTimeout(() => {
+        const firstChoice = document.querySelector('[data-rsvp]');
+        if (firstChoice) firstChoice.focus({ preventScroll: true });
+      }, 520);
+    });
+
     const ocean = document.getElementById('ocean');
     const swimmers = Array.from(document.querySelectorAll('.swimmer'));
 
@@ -766,7 +1280,7 @@
 
     document.getElementById('thankYouText').textContent =
       rsvpData.attending === 'yes'
-        ? 'We can’t wait to celebrate with you.'
+        ? 'We can’t wait to celebrate this special day with you.'
         : 'Sending love, and thank you for letting us know.';
 
     showStep(4);
