@@ -1178,10 +1178,6 @@
           <button type="button" class="choice-btn guest-count" data-count="4+">4+ Guests</button>
         </div>
 
-        <div id="notAttendingNote" hidden>
-          <p class="helper">No worries at all — your RSVP still means a lot to us.</p>
-        </div>
-
         <div class="nav-row">
           <button type="button" class="back-btn">Back</button>
           <button type="button" class="next-btn" data-next>Continue</button>
@@ -1203,7 +1199,7 @@
 
       <div class="quiz-step" data-step="4">
         <div class="success-mark">♡</div>
-        <h2 class="question">Thank you!</h2>
+        <h2 class="question" id="resultHeading">Thank you!</h2>
         <p class="helper" id="thankYouText">Thank you for being part of Taliya’s special day.</p>
         <div class="summary" id="rsvpSummary"></div>
 
@@ -1214,7 +1210,7 @@
             id="giftButton"
             aria-expanded="false"
             aria-controls="giftPanel">
-            🎁 Do you wish to give a gift?
+            🎁 Do you wish to send a gift?
           </button>
 
           <div class="gift-panel" id="giftPanel" hidden>
@@ -1311,9 +1307,6 @@
     const guestName = document.getElementById('guestName');
     const babyWish = document.getElementById('babyWish');
     const guestOptions = document.getElementById('guestOptions');
-    const notAttendingNote = document.getElementById('notAttendingNote');
-    const attendanceQuestion = document.getElementById('attendanceQuestion');
-    const attendanceHelper = document.getElementById('attendanceHelper');
 
     const rsvpData = {
       attending: '',
@@ -1343,16 +1336,12 @@
         rsvpData.attending = button.dataset.rsvp;
 
         if (rsvpData.attending === 'yes') {
-          attendanceQuestion.textContent = 'How many guests are coming?';
-          attendanceHelper.textContent = 'Including you.';
+          rsvpData.guests = '';
           guestOptions.hidden = false;
-          notAttendingNote.hidden = true;
         } else {
-          attendanceQuestion.textContent = 'We’ll miss you!';
-          attendanceHelper.textContent = 'Thank you for letting us know.';
-          guestOptions.hidden = true;
-          notAttendingNote.hidden = false;
           rsvpData.guests = '0';
+          rsvpData.wish = '';
+          document.querySelectorAll('.guest-count').forEach(btn => btn.classList.remove('selected'));
         }
 
         setTimeout(() => showStep(1), 180);
@@ -1369,7 +1358,7 @@
     });
 
     document.querySelectorAll('[data-next]').forEach((button) => {
-      button.addEventListener('click', () => {
+      button.addEventListener('click', async () => {
         if (currentStep === 1) {
           const value = guestName.value.trim();
 
@@ -1381,12 +1370,33 @@
 
           document.getElementById('step1Message').textContent = '';
           rsvpData.name = value;
+
+          if (rsvpData.attending === 'no') {
+            rsvpData.guests = '0';
+            rsvpData.wish = '';
+
+            const originalText = button.textContent;
+            button.disabled = true;
+            button.textContent = 'Sending...';
+
+            try {
+              await sendRsvp();
+              showResultScreen(false);
+            } catch (error) {
+              console.error('RSVP submission failed:', error);
+              alert('Something went wrong while sending your RSVP. Please try again.');
+              button.disabled = false;
+              button.textContent = originalText;
+            }
+            return;
+          }
+
           showStep(2);
           return;
         }
 
         if (currentStep === 2) {
-          if (rsvpData.attending === 'yes' && !rsvpData.guests) {
+          if (!rsvpData.guests) {
             document.getElementById('step2Message').textContent = 'Please choose the number of guests.';
             return;
           }
@@ -1408,6 +1418,39 @@
 	  const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyGKZvKd_8s26rDBPogb-kDtfqt835QJzCKHgM0_ktlGviNn7MQChN2v9vaiMOT3lJbOw/exec";
 	  
 	  
+   async function sendRsvp() {
+  await fetch(WEBHOOK_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8'
+    },
+    body: JSON.stringify(rsvpData)
+  });
+}
+
+   function showResultScreen(attending) {
+  const status = attending
+    ? `Attending — ${rsvpData.guests} guest${rsvpData.guests === '1' ? '' : 's'}`
+    : 'Unable to attend';
+
+  const summary = [
+    `<strong>${escapeHtml(rsvpData.name)}</strong>`,
+    escapeHtml(status),
+    attending && rsvpData.wish
+      ? `“${escapeHtml(rsvpData.wish)}”`
+      : ''
+  ].filter(Boolean).join('<br>');
+
+  document.getElementById('rsvpSummary').innerHTML = summary;
+  document.getElementById('resultHeading').textContent = attending ? 'Thank you!' : 'We’ll miss you!';
+  document.getElementById('thankYouText').textContent = attending
+    ? 'We can’t wait to celebrate this special day with you.'
+    : 'Thank you for letting us know. Sending love from all of us.';
+
+  showStep(4);
+}
+
    rsvpForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -1415,82 +1458,53 @@
   rsvpData.wish = babyWish.value.trim();
 
   const submitButton = rsvpForm.querySelector('button[type="submit"]');
-
   submitButton.disabled = true;
   submitButton.textContent = 'Sending...';
 
   try {
-
-    await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify(rsvpData)
-    });
-
-    const status = rsvpData.attending === 'yes'
-      ? `Attending — ${rsvpData.guests} guest${rsvpData.guests === '1' ? '' : 's'}`
-      : 'Unable to attend';
-
-    const summary = [
-      `<strong>${escapeHtml(rsvpData.name)}</strong>`,
-      escapeHtml(status),
-      rsvpData.wish
-        ? `“${escapeHtml(rsvpData.wish)}”`
-        : ''
-    ].filter(Boolean).join('<br>');
-
-    document.getElementById('rsvpSummary').innerHTML = summary;
-
-    document.getElementById('thankYouText').textContent =
-      rsvpData.attending === 'yes'
-        ? 'We can’t wait to celebrate this special day with you.'
-        : 'Sending love, and thank you for letting us know.';
-
-    showStep(4);
-
+    await sendRsvp();
+    showResultScreen(true);
   } catch (error) {
-
     console.error('RSVP submission failed:', error);
-
     alert('Something went wrong while sending your RSVP. Please try again.');
-
     submitButton.disabled = false;
     submitButton.textContent = 'Send RSVP';
   }
 });
 
-    // Gift QR section on the thank-you screen
-    const giftButton = document.getElementById('giftButton');
-    const giftPanel = document.getElementById('giftPanel');
-    const giftQrImage = document.getElementById('giftQrImage');
-    const giftQrFallback = document.getElementById('giftQrFallback');
+    // Gift QR section on the final result screen
+    function setupGiftSection(buttonId, panelId, imageId, fallbackId) {
+      const button = document.getElementById(buttonId);
+      const panel = document.getElementById(panelId);
+      const image = document.getElementById(imageId);
+      const fallback = document.getElementById(fallbackId);
 
-    if (giftButton && giftPanel) {
-      giftButton.addEventListener('click', () => {
-        const willOpen = giftPanel.hidden;
-        giftPanel.hidden = !willOpen;
-        giftButton.setAttribute('aria-expanded', String(willOpen));
-        giftButton.textContent = willOpen
-          ? '♡ Hide gift QR code'
-          : '🎁 Do you wish to give a gift?';
+      if (button && panel) {
+        button.addEventListener('click', () => {
+          const willOpen = panel.hidden;
+          panel.hidden = !willOpen;
+          button.setAttribute('aria-expanded', String(willOpen));
+          button.textContent = willOpen
+            ? '♡ Hide gift QR code'
+            : '🎁 Do you wish to send a gift?';
 
-        if (willOpen) {
-          requestAnimationFrame(() => {
-            giftPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          });
-        }
-      });
+          if (willOpen) {
+            requestAnimationFrame(() => {
+              panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+          }
+        });
+      }
+
+      if (image && fallback) {
+        image.addEventListener('error', () => {
+          image.style.display = 'none';
+          fallback.style.display = 'grid';
+        });
+      }
     }
 
-    if (giftQrImage && giftQrFallback) {
-      giftQrImage.addEventListener('error', () => {
-        giftQrImage.style.display = 'none';
-        giftQrFallback.style.display = 'grid';
-      });
-    }
+    setupGiftSection('giftButton', 'giftPanel', 'giftQrImage', 'giftQrFallback');
 
     function escapeHtml(value) {
       return String(value).replace(/[&<>"']/g, (char) => ({
