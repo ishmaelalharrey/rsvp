@@ -3,7 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Taliya Skye M. Ishmael — Akika & Dedication</title>
+	
+	
+	
+	
+	
+	
+  <title>Taliya Skye M. Ishmael — AQIQAH</title>
+	
+ <!-- Primary Meta Tags -->
+<meta name="title" content="Taliya Skye M. Ishmael — Aqiqah Invitation">
+<meta name="description" content="Join us in celebrating Taliya Skye's special day of blessing and joy.">
+
+<!-- Facebook / Meta Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Taliya Skye M. Ishmael — Aqiqah Invitation">
+<meta property="og:description" content="Join us in celebrating this special day of blessing and joy.">
+<meta property="og:image" content="https://ishmaelalharrey.github.io/rsvp/taliya-skye/index_files/meta.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Taliya Skye Aqiqah Invitation">
+<meta property="og:url" content="https://ishmaelalharrey.github.io/rsvp/taliya-skye/">
+
+<!-- X / Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Taliya Skye M. Ishmael — Aqiqah Invitation">
+<meta name="twitter:description" content="Join us in celebrating this special day of blessing and joy.">
+<meta name="twitter:image" content="https://ishmaelalharrey.github.io/rsvp/taliya-skye/index_files/meta.png">
+	
+	
   <style>
     * { box-sizing: border-box; }
     html, body {
@@ -651,6 +679,114 @@
       line-height: 1.55;
     }
 
+
+    /* Optional gift / QR section */
+    .gift-wrap {
+      margin-top: 14px;
+    }
+
+    .gift-button {
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #d97fa3, #c96691);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 12px 24px rgba(190, 85, 130, .25);
+      transition: transform .18s ease, box-shadow .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .gift-button:hover,
+    .gift-button:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(190, 85, 130, .30);
+    }
+
+    .gift-button:focus-visible {
+      outline: 3px solid rgba(217, 127, 163, .22);
+      outline-offset: 3px;
+    }
+
+    .gift-panel {
+      margin-top: 12px;
+      padding: 16px 14px 15px;
+      border: 1px solid #efd4df;
+      border-radius: 18px;
+      background: rgba(255,255,255,.82);
+      text-align: center;
+      box-shadow: 0 9px 22px rgba(160, 84, 117, .09);
+      animation: giftPanelIn .28s ease;
+    }
+
+    .gift-panel[hidden] {
+      display: none;
+    }
+
+    @keyframes giftPanelIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .gift-title {
+      margin: 0 0 6px;
+      color: #624858;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    .gift-copy {
+      margin: 0 auto 12px;
+      max-width: 300px;
+      color: #8f7180;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .gift-qr-frame {
+      width: min(70vw, 230px);
+      margin: 0 auto;
+      padding: 10px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid #edd9e1;
+      box-shadow: 0 10px 24px rgba(113, 62, 87, .10);
+    }
+
+    .gift-qr {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      border-radius: 10px;
+      background: #fff;
+    }
+
+    .gift-qr-fallback {
+      display: none;
+      min-height: 180px;
+      place-items: center;
+      padding: 18px;
+      border-radius: 10px;
+      background: #fff6f9;
+      color: #9a7b8a;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .gift-note {
+      margin: 11px 0 0;
+      color: #a77d90;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
     /* Responsive layout */
     @media (max-width: 520px) {
       .email-intro {
@@ -998,7 +1134,7 @@
 	<div class="rsvp-subtitle" style="text-align: left;padding: 0 20px;">
 		
 		<span style="margin-right: 10px;">📅 When:</span> November 21, 2026 <br>
-		<span style="margin-right: 10px;">📍 Where:</span> Blk 8, Lot 12, Rebecca Homes Phase A, Brgy. San Isidro, General Santos City 
+		<span style="margin-right: 10px;">📍 Where:</span><a href="https://maps.app.goo.gl/zcBPLAz1XGmPTtZL7" target="_blank"> Blk 8, Lot 12, Rebecca Homes Phase A, Brgy. San Isidro, General Santos City </a>
 		
 		</div>
 		
@@ -1070,6 +1206,36 @@
         <h2 class="question">Thank you!</h2>
         <p class="helper" id="thankYouText">Thank you for being part of Taliya’s special day.</p>
         <div class="summary" id="rsvpSummary"></div>
+
+        <div class="gift-wrap">
+          <button
+            type="button"
+            class="gift-button"
+            id="giftButton"
+            aria-expanded="false"
+            aria-controls="giftPanel">
+            🎁 Do you wish to give a gift?
+          </button>
+
+          <div class="gift-panel" id="giftPanel" hidden>
+            <h3 class="gift-title">A Gift for Taliya</h3>
+            <p class="gift-copy">If you would like to send a gift, simply scan the QR code below.</p>
+
+            <div class="gift-qr-frame">
+              <img
+                class="gift-qr"
+                id="giftQrImage"
+                src="./index_files/gift-qr.png"
+                alt="QR code for sending a gift"
+                loading="lazy" />
+              <div class="gift-qr-fallback" id="giftQrFallback">
+                Add your QR image as<br><strong>index_files/gift-qr.png</strong>
+              </div>
+            </div>
+
+            <p class="gift-note">Thank you for celebrating this special day with us. ♡</p>
+          </div>
+        </div>
       </div>
     </form>
   </section>
@@ -1295,6 +1461,36 @@
     submitButton.textContent = 'Send RSVP';
   }
 });
+
+    // Gift QR section on the thank-you screen
+    const giftButton = document.getElementById('giftButton');
+    const giftPanel = document.getElementById('giftPanel');
+    const giftQrImage = document.getElementById('giftQrImage');
+    const giftQrFallback = document.getElementById('giftQrFallback');
+
+    if (giftButton && giftPanel) {
+      giftButton.addEventListener('click', () => {
+        const willOpen = giftPanel.hidden;
+        giftPanel.hidden = !willOpen;
+        giftButton.setAttribute('aria-expanded', String(willOpen));
+        giftButton.textContent = willOpen
+          ? '♡ Hide gift QR code'
+          : '🎁 Do you wish to give a gift?';
+
+        if (willOpen) {
+          requestAnimationFrame(() => {
+            giftPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          });
+        }
+      });
+    }
+
+    if (giftQrImage && giftQrFallback) {
+      giftQrImage.addEventListener('error', () => {
+        giftQrImage.style.display = 'none';
+        giftQrFallback.style.display = 'grid';
+      });
+    }
 
     function escapeHtml(value) {
       return String(value).replace(/[&<>"']/g, (char) => ({
